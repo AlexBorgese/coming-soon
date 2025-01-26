@@ -9,6 +9,7 @@ interface Game {
 	name: string;
 	first_release_date: number;
 	cover_image_url: string;
+	summary: string;
 }
 
 const GamesList = () => {
