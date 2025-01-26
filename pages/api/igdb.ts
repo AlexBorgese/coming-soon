@@ -38,8 +38,13 @@ export default async function handler(
 		});
 		console.log(response.data);
 		res.status(200).json(response.data);
-	} catch (error: any) {
-		console.error("Error:", error.response?.data || error.message);
-		res.status(500).json({ error: "Failed to fetch games" });
+	} catch (error: unknown) {
+		if (axios.isAxiosError(error)) {
+			console.error("Error:", error.response?.data || error.message);
+			res.status(500).json({ error: "Failed to fetch games" });
+		} else {
+			console.error("Unexpected error:", error);
+			res.status(500).json({ error: "Unexpected error occurred" });
+		}
 	}
 }
